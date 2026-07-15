@@ -7,8 +7,63 @@ interface MarkdownProps {
   project?: any;
 }
 
+const PROJECT_DETAILS: Record<string, any> = {
+  'desa-huntap': {
+    role: 'Full Stack Developer',
+    fungsi: 'Sistem Informasi Geografis interaktif untuk memetakan dan mengelola kawasan Hunian Tetap (Huntap) pascabencana erupsi Semeru.',
+    platform: 'Web Application',
+    extraTech: ['Leaflet.js', 'PostGIS', 'Tailwind CSS']
+  },
+  'kelontong-sync': {
+    role: 'Frontend Engineer',
+    fungsi: 'Aplikasi kasir cerdas dan manajemen inventaris berbasis PWA yang tetap bisa digunakan saat offline dan otomatis sinkronisasi saat online.',
+    platform: 'Progressive Web App (PWA)',
+    extraTech: ['Supabase', 'IndexedDB']
+  },
+  'seagma-presensi': {
+    role: 'Software Engineer (Collaborator)',
+    fungsi: 'Sistem absensi digital terintegrasi untuk manajemen anggota Sagamuda secara real-time.',
+    platform: 'Web Application',
+    extraTech: ['Next.js', 'React']
+  },
+  'kalibra': {
+    role: 'Software Engineer (Collaborator)',
+    fungsi: 'Platform edukasi dan manajemen pembelajaran digital untuk Kotchi Center.',
+    platform: 'Web Platform',
+    extraTech: ['React', 'Next.js', 'Node.js']
+  },
+  'berita': {
+    role: 'Full Stack Developer (Collaborator)',
+    fungsi: 'Portal berita digital dengan sistem CMS (Content Management System) khusus untuk pengelolaan artikel kolaboratif.',
+    platform: 'Web CMS',
+    extraTech: ['Next.js', 'PostgreSQL']
+  },
+  'sinergo-absensi': {
+    role: 'Software Engineer',
+    fungsi: 'Aplikasi manajemen absensi karyawan dan pelacakan produktivitas internal Sinergo.',
+    platform: 'Mobile App',
+    extraTech: ['Flutter (Dart)', 'Firebase']
+  },
+  'wa-bot-stiker': {
+    role: 'Backend Developer',
+    fungsi: 'Bot WhatsApp otomatis yang melayani pembuatan stiker instan langsung dari chat pengguna.',
+    platform: 'Bot Script',
+    extraTech: ['Node.js', 'Baileys (WA Socket)']
+  },
+  'prediksi_harga_rumah': {
+    role: 'Data Scientist / AI Engineer',
+    fungsi: 'Model Machine Learning menggunakan metode regresi linear untuk memprediksi fluktuasi harga properti.',
+    platform: 'Machine Learning Model',
+    extraTech: ['Python', 'Scikit-Learn', 'Pandas']
+  }
+};
+
 export const Markdown: React.FC<MarkdownProps> = ({ content, project }) => {
   const repoName = project?.name;
+  const details = repoName ? PROJECT_DETAILS[repoName] : null;
+  const allTech = [...(project?.topics || []), ...(details?.extraTech || [])];
+  // Remove duplicates just in case
+  const uniqueTech = Array.from(new Set(allTech));
 
   return (
     <div className="flex flex-col h-full bg-[#1e1e1e] overflow-y-auto scrollbar-hide">
@@ -22,6 +77,9 @@ export const Markdown: React.FC<MarkdownProps> = ({ content, project }) => {
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-3">
                 <h1 className="text-4xl font-bold text-white tracking-tight">{project.name}</h1>
+                <span className="bg-vscode-accent/20 text-vscode-accent border border-vscode-accent/30 px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide">
+                  {details?.platform || 'Software Project'}
+                </span>
                 {project.isPrivate && (
                   <span className="bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider">Private</span>
                 )}
@@ -37,7 +95,7 @@ export const Markdown: React.FC<MarkdownProps> = ({ content, project }) => {
                     🎯 Apa Fungsinya?
                   </h3>
                   <p className="text-gray-400 text-sm leading-relaxed">
-                    Aplikasi ini dirancang untuk menyederhanakan alur kerja pengguna, memberikan otomatisasi, serta menyajikan data secara interaktif dan efisien.
+                    {details?.fungsi || 'Aplikasi ini dirancang untuk menyederhanakan alur kerja pengguna, memberikan otomatisasi, serta menyajikan data secara interaktif dan efisien.'}
                   </p>
                 </div>
                 <div className="bg-[#252526] border border-[#3c3c3c] p-4 rounded-xl shadow-inner">
@@ -45,7 +103,7 @@ export const Markdown: React.FC<MarkdownProps> = ({ content, project }) => {
                     👨‍💻 Peran Saya
                   </h3>
                   <p className="text-gray-400 text-sm leading-relaxed">
-                    {project.role || 'Merancang arsitektur dasar, mengembangkan fitur inti, dan memastikan performa sistem berjalan optimal.'}
+                    {details?.role || project.role || 'Merancang arsitektur dasar, mengembangkan fitur inti, dan memastikan performa sistem berjalan optimal.'}
                   </p>
                 </div>
               </div>
@@ -62,8 +120,8 @@ export const Markdown: React.FC<MarkdownProps> = ({ content, project }) => {
                     {project.language}
                   </span>
                 )}
-                {project.topics && project.topics.length > 0 ? (
-                  project.topics.map((t: string) => (
+                {uniqueTech.length > 0 ? (
+                  uniqueTech.map((t: string) => (
                     <span key={t} className="bg-[#333] text-gray-300 border border-gray-600 px-2.5 py-1 rounded-md text-xs font-mono shadow-sm">
                       {t}
                     </span>

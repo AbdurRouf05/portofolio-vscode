@@ -120,16 +120,6 @@ const fallbackRepos: Repository[] = [
         fileName: "kelontong-sync.tsx"
     },
     {
-        id: 3,
-        name: "pitchdeck",
-        description: "Interactive pitch deck presentation slides builder with Framer Motion.",
-        language: "TypeScript",
-        html_url: "https://github.com/AbdurRouf05/pitchdeck",
-        homepage: "https://pitchdeck-rho-flax.vercel.app",
-        topics: ["framer-motion", "vite", "tailwind-css"],
-        fileName: "pitchdeck.tsx"
-    },
-    {
         id: 4,
         name: "prediksi_harga_rumah",
         description: "Model prediksi harga rumah berbasis machine learning dengan regresi linear.",
@@ -155,13 +145,6 @@ const fallbackCommits: Commit[] = [
         repoName: "kelontong-sync",
         date: "6/25/2026",
         url: "https://github.com/AbdurRouf05/kelontong-sync"
-    },
-    {
-        sha: "9f1e4b8",
-        message: "docs: update readme with presentation slides link",
-        repoName: "pitchdeck",
-        date: "2/17/2026",
-        url: "https://github.com/AbdurRouf05/pitchdeck"
     }
 ];
 
@@ -243,9 +226,9 @@ const Layout = () => {
         setLoadingProjects(true);
         setLoadingCommits(true);
 
-        const cachedRepos = localStorage.getItem('portfolio_repos_v6');
-        const cachedCommits = localStorage.getItem('portfolio_commits_v6');
-        const cachedTime = localStorage.getItem('portfolio_cache_time_v6');
+        const cachedRepos = localStorage.getItem('portfolio_repos_v7');
+        const cachedCommits = localStorage.getItem('portfolio_commits_v7');
+        const cachedTime = localStorage.getItem('portfolio_cache_time_v7');
 
         const isCacheValid = cachedTime && (Date.now() - parseInt(cachedTime)) < CACHE_TIME;
 
@@ -320,9 +303,9 @@ const Layout = () => {
         setLoadingProjects(false);
         setLoadingCommits(false);
 
-        localStorage.setItem('portfolio_repos_v6', JSON.stringify(repoData));
-        localStorage.setItem('portfolio_commits_v6', JSON.stringify(commitData));
-        localStorage.setItem('portfolio_cache_time_v6', Date.now().toString());
+        localStorage.setItem('portfolio_repos_v7', JSON.stringify(repoData));
+        localStorage.setItem('portfolio_commits_v7', JSON.stringify(commitData));
+        localStorage.setItem('portfolio_cache_time_v7', Date.now().toString());
     };
 
     const fetchReadme = async (repoName: string) => {
