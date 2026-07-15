@@ -1,6 +1,8 @@
-import { FaReact, FaMarkdown } from "react-icons/fa";
-import { SiTypescript, SiJavascript } from "react-icons/si";
-import { VscClose } from "react-icons/vsc";
+import { FaReact, FaJava } from "react-icons/fa";
+import { 
+    SiTypescript, SiJavascript, SiPython, SiGo, SiRust, SiDart, SiPhp
+} from "react-icons/si";
+import { VscClose, VscMarkdown, VscGitCommit } from "react-icons/vsc";
 
 interface TabBarProps {
     openTabs: string[];       // Array nama file yang sedang terbuka
@@ -11,14 +13,21 @@ interface TabBarProps {
 
 const TabBar = ({ openTabs, activeTab, onActivate, onClose }: TabBarProps) => {
     
-    // Helper icon (sama seperti explorer, idealnya dipisah ke utils)
+    // Helper icon (sama seperti explorer)
     const getIcon = (name: string) => {
         if (name.endsWith('tsx')) return <FaReact className="text-blue-400" />;
-        if (name.endsWith('ts')) return <SiTypescript className="text-blue-500" />;
+        if (name.endsWith('ts')) return <SiTypescript className="text-blue-400" />;
+        if (name.endsWith('jsx')) return <FaReact className="text-yellow-400" />;
         if (name.endsWith('js')) return <SiJavascript className="text-yellow-400" />;
-        if (name.endsWith('cpp')) return <span className="text-blue-700 font-bold text-xs">C++</span>;
-        if (name.endsWith('md')) return <FaMarkdown className="text-blue-200" />;
-        return <FaReact />;
+        if (name.endsWith('py')) return <SiPython className="text-yellow-300" />;
+        if (name.endsWith('java')) return <FaJava className="text-red-500" />;
+        if (name.endsWith('php')) return <SiPhp className="text-blue-500" />;
+        if (name.endsWith('dart')) return <SiDart className="text-cyan-400" />;
+        if (name.endsWith('go')) return <SiGo className="text-cyan-400" />;
+        if (name.endsWith('rs')) return <SiRust className="text-orange-500" />;
+        if (name.endsWith('diff')) return <VscGitCommit className="text-vscode-accent" />;
+        if (name.endsWith('md')) return <VscMarkdown className="text-blue-200" />;
+        return <FaReact className="text-blue-400" />;
     };
 
     return (

@@ -2,8 +2,10 @@ import { VscFiles, VscSearch, VscSourceControl, VscDebugAlt, VscExtensions, VscA
 
 // Props untuk menerima status apakah sidebar sedang terbuka & fungsi togglenya
 interface SidebarProps {
-    onToggleExplorer: () => void;
+    activeView: 'explorer' | 'git';
+    onChangeView: (view: 'explorer' | 'git') => void;
     isExplorerOpen: boolean;
+    onToggleExplorer: () => void;
 }
 
 const SidebarIcon = ({ icon, label, onClick, isActive }: { icon: any, label: string, onClick?: () => void, isActive?: boolean }) => (
@@ -21,19 +23,36 @@ const SidebarIcon = ({ icon, label, onClick, isActive }: { icon: any, label: str
   </div>
 );
 
-const Sidebar = ({ onToggleExplorer, isExplorerOpen }: SidebarProps) => {
+const Sidebar = ({ activeView, onChangeView, isExplorerOpen, onToggleExplorer }: SidebarProps) => {
+  const handleIconClick = (view: 'explorer' | 'git') => {
+    if (activeView === view) {
+      // Toggle open/close if same icon is clicked
+      onToggleExplorer();
+    } else {
+      // Switch view and ensure sidebar is open
+      onChangeView(view);
+      if (!isExplorerOpen) {
+        onToggleExplorer();
+      }
+    }
+  };
+
   return (
     <div className="w-12 bg-vscode-activityBar flex flex-col justify-between items-center z-40 shrink-0">
       <div className="w-full flex flex-col">
-        {/* Tombol Explorer sekarang punya aksi onClick */}
         <SidebarIcon 
             icon={<VscFiles size={24} />} 
             label="Explorer" 
-            onClick={onToggleExplorer} 
-            isActive={isExplorerOpen}
+            onClick={() => handleIconClick('explorer')} 
+            isActive={isExplorerOpen && activeView === 'explorer'}
+        />
+        <SidebarIcon 
+            icon={<VscSourceControl size={24} />} 
+            label="Source Control" 
+            onClick={() => handleIconClick('git')}
+            isActive={isExplorerOpen && activeView === 'git'}
         />
         <SidebarIcon icon={<VscSearch size={24} />} label="Search" />
-        <SidebarIcon icon={<VscSourceControl size={24} />} label="Source Control" />
         <SidebarIcon icon={<VscDebugAlt size={24} />} label="Run and Debug" />
         <SidebarIcon icon={<VscExtensions size={24} />} label="Extensions" />
       </div>
