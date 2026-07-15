@@ -10,6 +10,7 @@ import {
     VscLoading, VscPlay, VscMarkdown, VscSplitHorizontal, 
     VscCode, VscTerminal, VscLock, VscOrganization 
 } from "react-icons/vsc";
+import { PRIVATE_READMES } from '../data/privateReadmes';
 
 // --- LAZY LOADING STATIC PAGES ---
 const Welcome = lazy(() => import('../pages/Welcome'));
@@ -149,10 +150,14 @@ const fallbackCommits: Commit[] = [
 ];
 
 const getPrivateProjectReadme = (project: Repository): string => {
+    if (PRIVATE_READMES[project.name]) {
+        return PRIVATE_READMES[project.name];
+    }
+    
     return `# [PRIVATE REPOSITORY] ${project.name}
 
 **Role:** ${project.role || 'Software Engineer'}
-**Tech Stack:** ${project.topics.map(t => `\`#${t}\``).join(' ')}
+**Tech Stack:** ${project.topics.map(t => `#${t}`).join(' ')}
 
 ## Project Overview
 ${project.description}
@@ -311,9 +316,9 @@ const Layout = () => {
     const fetchReadme = async (repoName: string) => {
         if (readmeContent[repoName]) return;
 
-        // Bypassing for Private repositories
+        // Bypassing for Private repositories or Static enrichments
         const project = projects.find(p => p.name === repoName) || staticEnrichments.find(p => p.name === repoName);
-        if (project?.isPrivate) {
+        if (project?.isPrivate || project?.isCollaborator) {
             setReadmeContent(prev => ({ ...prev, [repoName]: getPrivateProjectReadme(project) }));
             return;
         }
