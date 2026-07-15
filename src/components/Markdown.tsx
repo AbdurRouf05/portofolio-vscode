@@ -9,52 +9,54 @@ interface MarkdownProps {
 
 const PROJECT_DETAILS: Record<string, any> = {
   'desa-huntap': {
-    role: 'Full Stack Developer',
-    fungsi: 'Sistem Informasi Geografis interaktif untuk memetakan dan mengelola kawasan Hunian Tetap (Huntap) pascabencana erupsi Semeru.',
+    fungsi: 'Sistem Informasi Desa (SID) untuk memetakan dan mengelola data penduduk.',
     platform: 'Web Application',
-    extraTech: ['Leaflet.js', 'PostGIS', 'Tailwind CSS']
+    extraTech: ['Next.js', 'PocketBase', 'Leaflet.js']
   },
   'kelontong-sync': {
-    role: 'Frontend Engineer',
-    fungsi: 'Aplikasi kasir cerdas dan manajemen inventaris berbasis PWA yang tetap bisa digunakan saat offline dan otomatis sinkronisasi saat online.',
+    fungsi: 'Aplikasi Enterprise Resource Planning (ERP) berkonsep Software as a Service (SaaS).',
     platform: 'Progressive Web App (PWA)',
-    extraTech: ['Supabase', 'IndexedDB']
+    extraTech: ['Next.js', 'Supabase', 'IndexedDB']
+  },
+  'sid-desa': {
+    fungsi: 'Sistem Informasi Desa (SID) yang dirancang khusus untuk memfasilitasi administrasi Desa Sumberanyar.',
+    platform: 'Web Application',
+    extraTech: ['Next.js', 'PocketBase']
   },
   'seagma-presensi': {
-    role: 'Software Engineer (Collaborator)',
-    fungsi: 'Sistem absensi digital terintegrasi untuk manajemen anggota Sagamuda secara real-time.',
+    fungsi: 'Aplikasi manajemen absensi terpadu untuk internal perusahaan Seagma (Semeru Agung Mandiri).',
     platform: 'Web Application',
-    extraTech: ['Next.js', 'React']
+    extraTech: ['Next.js', 'PocketBase']
   },
   'kalibra': {
-    role: 'Software Engineer (Collaborator)',
-    fungsi: 'Platform edukasi dan manajemen pembelajaran digital untuk Kotchi Center.',
+    fungsi: 'Sistem ERP berkonsep SaaS tingkat lanjut (Advanced) untuk manajemen operasional Kotchi Center.',
     platform: 'Web Platform',
-    extraTech: ['React', 'Next.js', 'Node.js']
+    extraTech: ['Next.js', 'PostgreSQL', 'Node.js']
   },
   'berita': {
-    role: 'Full Stack Developer (Collaborator)',
-    fungsi: 'Portal berita digital dengan sistem CMS (Content Management System) khusus untuk pengelolaan artikel kolaboratif.',
+    fungsi: 'Portal web berita digital kolaboratif dari Satu Detik.',
     platform: 'Web CMS',
-    extraTech: ['Next.js', 'PostgreSQL']
+    extraTech: ['Next.js', 'PocketBase']
+  },
+  'prediksi_harga_rumah': {
+    fungsi: 'Proyek Tugas Akhir (UAS). Model Machine Learning menggunakan metode regresi linear untuk memprediksi fluktuasi harga properti.',
+    platform: 'Machine Learning Model',
+    extraTech: ['Python', 'Scikit-Learn', 'Pandas']
   },
   'sinergo-absensi': {
-    role: 'Software Engineer',
-    fungsi: 'Aplikasi manajemen absensi karyawan dan pelacakan produktivitas internal Sinergo.',
+    fungsi: 'Aplikasi pencatatan absensi karyawan secara real-time.',
     platform: 'Mobile App',
     extraTech: ['Flutter (Dart)', 'Firebase']
   },
   'wa-bot-stiker': {
-    role: 'Backend Developer',
     fungsi: 'Bot WhatsApp otomatis yang melayani pembuatan stiker instan langsung dari chat pengguna.',
     platform: 'Bot Script',
     extraTech: ['Node.js', 'Baileys (WA Socket)']
   },
-  'prediksi_harga_rumah': {
-    role: 'Data Scientist / AI Engineer',
-    fungsi: 'Model Machine Learning menggunakan metode regresi linear untuk memprediksi fluktuasi harga properti.',
-    platform: 'Machine Learning Model',
-    extraTech: ['Python', 'Scikit-Learn', 'Pandas']
+  'SistemAntrianKlinikJava': {
+    fungsi: 'Proyek Tugas Akhir (UAS). Sistem manajemen antrian pasien klinik yang efisien.',
+    platform: 'Desktop Application',
+    extraTech: ['Java', 'MySQL']
   }
 };
 
@@ -70,14 +72,14 @@ export const Markdown: React.FC<MarkdownProps> = ({ content, project }) => {
       
       {/* Aesthetic Project Explanation Header */}
       {project && (
-        <div className="w-full bg-gradient-to-b from-[#2a2a2b] to-[#1e1e1e] border-b border-[#333] px-6 py-10 shrink-0 font-sans shadow-lg shadow-black/20">
-          <div className="max-w-4xl mx-auto flex flex-col md:flex-row md:items-start gap-8">
+        <div className="w-full bg-[#1e1e1e] border-b border-[#333] px-6 py-8 shrink-0 font-sans">
+          <div className="max-w-4xl mx-auto flex flex-col md:flex-row md:items-center gap-8">
             
             {/* Left Content */}
             <div className="flex-1">
-              <div className="flex items-center gap-3 mb-3">
-                <h1 className="text-4xl font-bold text-white tracking-tight">{project.name}</h1>
-                <span className="bg-vscode-accent/20 text-vscode-accent border border-vscode-accent/30 px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide">
+              <div className="flex items-center gap-3 mb-2">
+                <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">{project.name}</h1>
+                <span className="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full text-[11px] font-semibold tracking-wide">
                   {details?.platform || 'Software Project'}
                 </span>
                 {project.isPrivate && (
@@ -85,49 +87,25 @@ export const Markdown: React.FC<MarkdownProps> = ({ content, project }) => {
                 )}
               </div>
               
-              <p className="text-gray-300 text-base leading-relaxed mb-8">
-                {project.description || details?.fungsi || 'Proyek pengembangan perangkat lunak yang berfokus pada keandalan, efisiensi, dan skalabilitas tinggi.'}
+              <p className="text-gray-300 text-sm md:text-base leading-relaxed">
+                {details?.fungsi || project.description || 'Proyek pengembangan perangkat lunak yang berfokus pada efisiensi dan skalabilitas tinggi.'}
               </p>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div className="bg-[#252526] border border-[#3c3c3c] p-4 rounded-xl shadow-inner">
-                  <h3 className="text-xs text-vscode-accent uppercase tracking-widest mb-1.5 font-bold flex items-center gap-1.5">
-                    🎯 Apa Fungsinya?
-                  </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">
-                    {details?.fungsi || 'Aplikasi ini dirancang untuk menyederhanakan alur kerja pengguna, memberikan otomatisasi, serta menyajikan data secara interaktif dan efisien.'}
-                  </p>
-                </div>
-                <div className="bg-[#252526] border border-[#3c3c3c] p-4 rounded-xl shadow-inner">
-                  <h3 className="text-xs text-vscode-accent uppercase tracking-widest mb-1.5 font-bold flex items-center gap-1.5">
-                    👨‍💻 Peran Saya
-                  </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">
-                    {details?.role || project.role || 'Merancang arsitektur dasar, mengembangkan fitur inti, dan memastikan performa sistem berjalan optimal.'}
-                  </p>
-                </div>
-              </div>
             </div>
 
             {/* Right Content: Tech Stack */}
-            <div className="w-full md:w-72 bg-[#252526] border border-[#3c3c3c] p-5 rounded-xl shrink-0 shadow-xl">
-              <h3 className="text-xs text-gray-400 uppercase tracking-widest mb-4 font-bold border-b border-[#3c3c3c] pb-2">
-                Teknologi & Tools
+            <div className="w-full md:w-auto bg-[#252526] border border-[#3c3c3c] p-4 rounded-xl shrink-0 shadow-sm flex flex-col justify-center">
+              <h3 className="text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-bold">
+                Tech Stack
               </h3>
-              <div className="flex flex-wrap gap-2">
-                {project.language && (
-                  <span className="bg-blue-500/15 text-blue-400 border border-blue-500/30 px-2.5 py-1 rounded-md text-xs font-mono font-medium shadow-sm">
-                    {project.language}
-                  </span>
-                )}
+              <div className="flex flex-wrap md:max-w-[200px] gap-1.5">
                 {uniqueTech.length > 0 ? (
                   uniqueTech.map((t: string) => (
-                    <span key={t} className="bg-[#333] text-gray-300 border border-gray-600 px-2.5 py-1 rounded-md text-xs font-mono shadow-sm">
+                    <span key={t} className="bg-[#333] text-gray-300 border border-gray-600 px-2 py-0.5 rounded text-[11px] font-mono">
                       {t}
                     </span>
                   ))
                 ) : (
-                  <span className="text-gray-500 text-xs italic">Tech stack tidak dirinci</span>
+                  <span className="text-gray-500 text-xs italic">Tidak dirinci</span>
                 )}
               </div>
             </div>
