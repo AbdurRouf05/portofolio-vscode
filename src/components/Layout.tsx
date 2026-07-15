@@ -515,7 +515,7 @@ export default function ${project.name.replace(/[-_]/g, '')}() {
                         </div>
                     );
                 }
-                return <Markdown content={readmeContent[project.name] || ''} repoName={project.name} />;
+                return <Markdown content={readmeContent[project.name] || ''} project={project} />;
             }
             return renderCodeView(project);
         }
@@ -746,15 +746,23 @@ export default function ${project.name.replace(/[-_]/g, '')}() {
                             {activeTab.includes('.') && !['Welcome.tsx', 'Home.tsx', 'About.tsx', 'Pendidikan.tsx', 'README.md'].includes(activeTab) && !activeTab.endsWith('.diff') && (
                                 <div className="flex items-center gap-3 select-none">
                                     {/* 1. Run/Play Button */}
-                                    <button 
-                                        onClick={() => runProject(activeTab)}
-                                        disabled={isRunningProject}
-                                        className="hover:text-green-500 transition-colors flex items-center gap-1 cursor-pointer"
-                                        title="Run Project in Terminal"
-                                    >
-                                        <VscPlay className={isRunningProject ? "animate-pulse text-green-500" : "text-gray-400"} />
-                                        <span className="text-[10px] hidden md:inline">Run</span>
-                                    </button>
+                                    <div className="relative flex items-center group/run">
+                                        <button 
+                                            onClick={() => runProject(activeTab)}
+                                            disabled={isRunningProject}
+                                            className="hover:text-green-500 transition-colors flex items-center gap-1 cursor-pointer"
+                                            title="Run Project in Terminal"
+                                        >
+                                            <VscPlay className={isRunningProject ? "animate-pulse text-green-500" : "text-gray-400"} />
+                                            <span className="text-[10px] hidden md:inline">Run</span>
+                                        </button>
+                                        
+                                        {/* Sticky note tooltip */}
+                                        <div className="absolute top-full mt-2.5 right-0 bg-yellow-100 text-yellow-900 border border-yellow-300 text-[11px] px-2.5 py-1.5 rounded shadow-lg shadow-black/50 whitespace-nowrap opacity-90 hover:opacity-100 transition-opacity flex items-center gap-1.5 font-sans z-50">
+                                            💡 <span>Klik <strong>Run</strong> untuk melihat preview project!</span>
+                                            <div className="absolute bottom-full right-4 border-[5px] border-transparent border-b-yellow-100"></div>
+                                        </div>
+                                    </div>
 
                                     {/* 2. Markdown Preview Toggle */}
                                     <button 
