@@ -243,9 +243,9 @@ const Layout = () => {
         setLoadingProjects(true);
         setLoadingCommits(true);
 
-        const cachedRepos = localStorage.getItem('portfolio_repos_v4');
-        const cachedCommits = localStorage.getItem('portfolio_commits_v4');
-        const cachedTime = localStorage.getItem('portfolio_cache_time_v4');
+        const cachedRepos = localStorage.getItem('portfolio_repos_v5');
+        const cachedCommits = localStorage.getItem('portfolio_commits_v5');
+        const cachedTime = localStorage.getItem('portfolio_cache_time_v5');
 
         const isCacheValid = cachedTime && (Date.now() - parseInt(cachedTime)) < CACHE_TIME;
 
@@ -265,7 +265,7 @@ const Layout = () => {
             const excludedProjects = [
                 'pkm', 'pppl', 'presentasi', 'pitchdeck', 'portofolio', 
                 'portofolio-vscode', 'portfolio-vscode', 'slide-seagma', 
-                'slideseagma', 'arackerman05', 'appjirlah', '-appjirlah'
+                'slideseagma', 'arackerman05', 'appjirlah', '-appjirlah', 'uts'
             ];
             const reposRes = await fetch('https://api.github.com/users/AbdurRouf05/repos?sort=updated&per_page=100');
             if (reposRes.ok) {
@@ -320,9 +320,9 @@ const Layout = () => {
         setLoadingProjects(false);
         setLoadingCommits(false);
 
-        localStorage.setItem('portfolio_repos_v4', JSON.stringify(repoData));
-        localStorage.setItem('portfolio_commits_v4', JSON.stringify(commitData));
-        localStorage.setItem('portfolio_cache_time_v4', Date.now().toString());
+        localStorage.setItem('portfolio_repos_v5', JSON.stringify(repoData));
+        localStorage.setItem('portfolio_commits_v5', JSON.stringify(commitData));
+        localStorage.setItem('portfolio_cache_time_v5', Date.now().toString());
     };
 
     const fetchReadme = async (repoName: string) => {
