@@ -46,7 +46,7 @@ const getExtension = (lang: string | null): string => {
     if (!lang) return 'md';
     const l = lang.toLowerCase();
     if (l === 'typescript') return 'tsx';
-    if (l === 'javascript') return 'jsx';
+    if (l === 'javascript') return 'js';
     if (l === 'python') return 'py';
     if (l === 'java') return 'java';
     if (l === 'php') return 'php';
@@ -243,9 +243,9 @@ const Layout = () => {
         setLoadingProjects(true);
         setLoadingCommits(true);
 
-        const cachedRepos = localStorage.getItem('portfolio_repos_v5');
-        const cachedCommits = localStorage.getItem('portfolio_commits_v5');
-        const cachedTime = localStorage.getItem('portfolio_cache_time_v5');
+        const cachedRepos = localStorage.getItem('portfolio_repos_v6');
+        const cachedCommits = localStorage.getItem('portfolio_commits_v6');
+        const cachedTime = localStorage.getItem('portfolio_cache_time_v6');
 
         const isCacheValid = cachedTime && (Date.now() - parseInt(cachedTime)) < CACHE_TIME;
 
@@ -276,7 +276,7 @@ const Layout = () => {
                     id: repo.id,
                     name: repo.name,
                     description: repo.description,
-                    language: repo.language,
+                    language: repo.name === 'wa-bot-stiker' ? 'JavaScript' : repo.language,
                     html_url: repo.html_url,
                     homepage: repo.homepage,
                     topics: repo.topics || [],
@@ -320,9 +320,9 @@ const Layout = () => {
         setLoadingProjects(false);
         setLoadingCommits(false);
 
-        localStorage.setItem('portfolio_repos_v5', JSON.stringify(repoData));
-        localStorage.setItem('portfolio_commits_v5', JSON.stringify(commitData));
-        localStorage.setItem('portfolio_cache_time_v5', Date.now().toString());
+        localStorage.setItem('portfolio_repos_v6', JSON.stringify(repoData));
+        localStorage.setItem('portfolio_commits_v6', JSON.stringify(commitData));
+        localStorage.setItem('portfolio_cache_time_v6', Date.now().toString());
     };
 
     const fetchReadme = async (repoName: string) => {
