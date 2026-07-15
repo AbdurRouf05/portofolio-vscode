@@ -95,18 +95,6 @@ const staticEnrichments: Repository[] = [
         fileName: "berita.tsx",
         isCollaborator: true,
         role: "Full Stack Developer (Collaborator)"
-    },
-    {
-        id: 9905,
-        name: "sinergo-absensi",
-        description: "Sistem manajemen absensi Sinergo.",
-        language: "TypeScript",
-        html_url: "",
-        homepage: "",
-        topics: ["typescript", "nextjs", "management"],
-        fileName: "sinergo-absensi.tsx",
-        isPrivate: true,
-        role: "Software Engineer"
     }
 ];
 
@@ -255,9 +243,9 @@ const Layout = () => {
         setLoadingProjects(true);
         setLoadingCommits(true);
 
-        const cachedRepos = localStorage.getItem('portfolio_repos_v3');
-        const cachedCommits = localStorage.getItem('portfolio_commits_v3');
-        const cachedTime = localStorage.getItem('portfolio_cache_time_v3');
+        const cachedRepos = localStorage.getItem('portfolio_repos_v4');
+        const cachedCommits = localStorage.getItem('portfolio_commits_v4');
+        const cachedTime = localStorage.getItem('portfolio_cache_time_v4');
 
         const isCacheValid = cachedTime && (Date.now() - parseInt(cachedTime)) < CACHE_TIME;
 
@@ -332,9 +320,9 @@ const Layout = () => {
         setLoadingProjects(false);
         setLoadingCommits(false);
 
-        localStorage.setItem('portfolio_repos_v3', JSON.stringify(repoData));
-        localStorage.setItem('portfolio_commits_v3', JSON.stringify(commitData));
-        localStorage.setItem('portfolio_cache_time_v3', Date.now().toString());
+        localStorage.setItem('portfolio_repos_v4', JSON.stringify(repoData));
+        localStorage.setItem('portfolio_commits_v4', JSON.stringify(commitData));
+        localStorage.setItem('portfolio_cache_time_v4', Date.now().toString());
     };
 
     const fetchReadme = async (repoName: string) => {
