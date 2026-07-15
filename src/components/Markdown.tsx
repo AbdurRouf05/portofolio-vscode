@@ -4,9 +4,10 @@ import rehypeRaw from 'rehype-raw';
 
 interface MarkdownProps {
   content: string;
+  repoName?: string;
 }
 
-export const Markdown: React.FC<MarkdownProps> = ({ content }) => {
+export const Markdown: React.FC<MarkdownProps> = ({ content, repoName }) => {
   return (
     <div className="markdown-body p-6 text-gray-300 text-sm md:text-base max-w-4xl mx-auto overflow-y-auto h-full scrollbar-hide">
       <ReactMarkdown 
@@ -21,7 +22,14 @@ export const Markdown: React.FC<MarkdownProps> = ({ content }) => {
           ol: ({node, ...props}) => <ol className="ml-6 list-decimal text-gray-300 my-1" {...props} />,
           li: ({node, ...props}) => <li className="my-1" {...props} />,
           strong: ({node, ...props}) => <strong className="font-bold text-white" {...props} />,
-          img: ({node, ...props}) => <img className="max-w-full h-auto rounded my-4 inline-block" {...props} />,
+          img: ({node, src, ...props}: any) => {
+            let finalSrc = src;
+            if (repoName && src && !src.startsWith('http') && !src.startsWith('data:')) {
+              const cleanPath = src.replace(/^\/+/, '');
+              finalSrc = `https://raw.githubusercontent.com/AbdurRouf05/${repoName}/main/${cleanPath}`;
+            }
+            return <img src={finalSrc} className="max-w-full h-auto rounded my-4 inline-block" {...props} />;
+          },
           pre: ({node, ...props}) => <pre className="bg-[#1e1e1e] p-4 rounded-lg my-4 overflow-x-auto text-sm border border-gray-700 font-mono text-gray-300" {...props} />,
           code: ({node, className, children, ...props}: any) => {
             // Check if it's block code (usually has a language class) or inline

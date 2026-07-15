@@ -515,7 +515,7 @@ export default function ${project.name.replace(/[-_]/g, '')}() {
                         </div>
                     );
                 }
-                return <Markdown content={readmeContent[project.name] || ''} />;
+                return <Markdown content={readmeContent[project.name] || ''} repoName={project.name} />;
             }
             return renderCodeView(project);
         }
