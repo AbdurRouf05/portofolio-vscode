@@ -86,7 +86,7 @@ export const Markdown: React.FC<MarkdownProps> = ({ content, project }) => {
               </div>
               
               <p className="text-gray-300 text-base leading-relaxed mb-8">
-                {project.description || 'Sebuah solusi digital modern yang dikembangkan untuk memecahkan masalah kompleks dengan antarmuka yang intuitif dan arsitektur yang kuat.'}
+                {project.description || details?.fungsi || 'Proyek pengembangan perangkat lunak yang berfokus pada keandalan, efisiensi, dan skalabilitas tinggi.'}
               </p>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">

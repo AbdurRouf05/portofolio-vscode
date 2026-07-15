@@ -226,9 +226,9 @@ const Layout = () => {
         setLoadingProjects(true);
         setLoadingCommits(true);
 
-        const cachedRepos = localStorage.getItem('portfolio_repos_v7');
-        const cachedCommits = localStorage.getItem('portfolio_commits_v7');
-        const cachedTime = localStorage.getItem('portfolio_cache_time_v7');
+        const cachedRepos = localStorage.getItem('portfolio_repos_v8');
+        const cachedCommits = localStorage.getItem('portfolio_commits_v8');
+        const cachedTime = localStorage.getItem('portfolio_cache_time_v8');
 
         const isCacheValid = cachedTime && (Date.now() - parseInt(cachedTime)) < CACHE_TIME;
 
@@ -248,7 +248,7 @@ const Layout = () => {
             const excludedProjects = [
                 'pkm', 'pppl', 'presentasi', 'pitchdeck', 'portofolio', 
                 'portofolio-vscode', 'portfolio-vscode', 'slide-seagma', 
-                'slideseagma', 'arackerman05', 'appjirlah', '-appjirlah', 'uts'
+                'slideseagma', 'arackerman05', 'appjirlah', '-appjirlah', 'uts', 'tik'
             ];
             const reposRes = await fetch('https://api.github.com/users/AbdurRouf05/repos?sort=updated&per_page=100');
             if (reposRes.ok) {
@@ -303,9 +303,9 @@ const Layout = () => {
         setLoadingProjects(false);
         setLoadingCommits(false);
 
-        localStorage.setItem('portfolio_repos_v7', JSON.stringify(repoData));
-        localStorage.setItem('portfolio_commits_v7', JSON.stringify(commitData));
-        localStorage.setItem('portfolio_cache_time_v7', Date.now().toString());
+        localStorage.setItem('portfolio_repos_v8', JSON.stringify(repoData));
+        localStorage.setItem('portfolio_commits_v8', JSON.stringify(commitData));
+        localStorage.setItem('portfolio_cache_time_v8', Date.now().toString());
     };
 
     const fetchReadme = async (repoName: string) => {
